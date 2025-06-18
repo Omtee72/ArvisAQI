@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'services/air_quality_service.dart';
 import 'screens/splash_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/location_permission_screen.dart';
@@ -6,8 +9,22 @@ import 'screens/notification_permission_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/privacy_policy_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  // Ensure Flutter is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables (for API keys)
+  await dotenv.load(fileName: '.env');
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AirQualityService()),
+        // Add other providers as needed
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -54,9 +71,4 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-}
-
-@override
-Widget build(BuildContext context) {
-  return Scaffold();
 }

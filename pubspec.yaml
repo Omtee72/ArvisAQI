@@ -36,4 +36,10 @@ flutter:
     - assets/images/notification_illustration.png
     - assets/images/onboarding2.png
     - assets/images/onboarding3.png
-    
+    - assets/config/.env    
+  fonts:
+    - family: roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        
+      
